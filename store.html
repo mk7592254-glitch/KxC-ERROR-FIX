@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝑾𝒆𝒍𝒄𝒐𝒎𝒆 𝑻𝒐 𝑲𝒂𝒊𝒖𝒎 𝒙 𝑪𝒉𝒆𝒂𝒕𝒔 𝑺𝒉𝒐𝒑 | Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root {
+            --c0: #020604;
+            --c1: #061209;
+            --c2: #081a0d;
+            --neon-primary: #00ff66;
+            --neon-secondary: #ffffff;
+            --neon-dark: #008f39;
+            --white: #ffffff;
+            --muted: #8b9ca5;
+            --border: rgba(0, 255, 102, 0.1);
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            background: var(--c0);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .pc {
+            width: 320px !important;
+            max-width: 100% !important;
+        }
+
+        div:has(> .pc) {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 20px !important;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        body.loading {
+            overflow: hidden !important;
+        }
+
+        /* ── LOADER ── */
+
+        #loader-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--c0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader-ring {
+            width: 70px;
+            height: 70px;
+            border: 2px solid rgba(0, 255, 102, 0.1);
+            border-top-color: var(--neon-secondary);
+            border-right-color: var(--neon-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.3);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-shadow: 0 0 15px var(--neon-primary);
+            margin-bottom: 2.5rem;
+        }
+
+        .loader-track {
+            width: 300px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loader-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-secondary), var(--neon-primary));
+            transition: width 0.1s ease;
+            box-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .loader-pct {
+            font-size: 0.8rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            margin-top: 1rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+        }
+
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* ── BACKGROUND FX ── */
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        .ambient {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.12;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        .orb-a {
+            width: 50vw;
+            height: 50vw;
+            top: -20%;
+            left: -10%;
+            background: var(--neon-dark);
+        }
+
+        .orb-b {
+            width: 45vw;
+            height: 45vw;
+            bottom: -10%;
+            right: -10%;
+            background: var(--neon-primary);
+            animation-delay: -5s;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0)
+            }
+            100% {
+                transform: translate(40px, 60px)
+            }
+        }
+
+        /* ── PAKISTAN STRIPE & TOP BAR ── */
+
+        .pakistan-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            display: flex;
+            z-index: 9999;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+        }
+
+        .pb-w {
+            flex: 1;
+            background: #FFFFFF;
+            max-width: 25%;
+        }
+
+        .pb-g {
+            flex: 3;
+            background: #006600;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 4px;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            background: rgba(2, 6, 4, 0.6);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .tb-brand {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--white);
+            background: linear-gradient(90deg, var(--neon-secondary), var(--neon-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tb-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border: 1px solid var(--neon-primary);
+            background: rgba(0, 255, 102, 0.05);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--neon-primary);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--neon-primary);
+            box-shadow: 0 0 10px var(--neon-primary);
+            animation: pd 1.2s ease-in-out infinite;
+        }
+
+        @keyframes pd {
+            0%,
+            100% {
+                opacity: 0.4
+            }
+            50% {
+                opacity: 1
+            }
+        }
+
+        .tb-visitor-img img {
+            height: 24px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+        }
+
+        /* ── MAIN CONTENT ── */
+
+        #main-content {
+            display: none;
+        }
+
+        .page-wrap {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ── HEADER ── */
+
+        .store-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .store-eyebrow {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--neon-primary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+        }
+
+        .store-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            color: var(--white);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, var(--white) 20%, #a8ffcc 60%, var(--neon-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .store-sub {
+            color: var(--muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+        }
+
+        .social-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .s-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s cubic-bezier(.22, 1, .36, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .s-btn:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .s-btn.home {
+            border-color: var(--neon-secondary);
+            color: var(--neon-secondary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .s-btn.home:hover {
+            background: var(--neon-secondary);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-secondary);
+        }
+
+        /* ── HOME GRID ── */
+
+        #home-view {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--border);
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .hcard {
+            background: var(--c1);
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .hcard::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 2px solid transparent;
+            border-radius: inherit;
+            transition: all 0.4s;
+            pointer-events: none;
+        }
+
+        .hcard:hover {
+            background: var(--c2);
+            z-index: 2;
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .hcard:hover::before {
+            border-color: var(--neon-primary);
+            box-shadow: inset 0 0 20px rgba(0, 255, 102, 0.1);
+        }
+
+        .hcard-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--neon-secondary);
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--neon-secondary);
+            margin-bottom: 2rem;
+            width: fit-content;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .hcard-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .hcard:hover .hcard-icon {
+            background: rgba(0, 255, 102, 0.1);
+            border-color: var(--neon-primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+        }
+
+        .hcard-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .hcard-sub {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hcard-cta {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .hcard:hover .hcard-cta {
+            color: var(--neon-primary);
+            text-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        /* ── PAGE VIEWS ── */
+
+        .page-view {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 2rem 2rem 6rem;
+            display: none;
+            animation: fadeUp 0.5s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98)
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1)
+            }
+        }
+
+        .panel-box,
+        .util-box {
+            background: rgba(6, 18, 9, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            backdrop-filter: blur(40px);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-box::before,
+        .util-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-secondary), var(--neon-primary));
+        }
+
+        .pv-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .pv-sub {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 2.5rem;
+            text-align: center;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--white);
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            background: rgba(0, 255, 102, 0.05);
+            transition: all 0.3s cubic-bezier(.22, 1, .36, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-action:hover {
+            background: rgba(0, 255, 102, 0.15);
+            border-color: var(--neon-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0, 255, 102, 0.2), inset 0 0 15px rgba(0, 255, 102, 0.1);
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .btn-action.vip {
+            border: 1px solid var(--neon-dark);
+            background: rgba(0, 143, 57, 0.1);
+        }
+
+        .btn-action.vip:hover {
+            background: var(--neon-dark);
+            color: #fff;
+            box-shadow: 0 0 30px var(--neon-dark);
+            transform: translateY(-4px);
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .video-frame {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2.5rem 0;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .video-frame iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-thumb {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .video-thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            transition: background 0.3s;
+        }
+
+        .video-thumb:hover {
+            transform: scale(1.05);
+        }
+
+        .video-thumb:hover::after {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 255, 102, 0.2);
+            border: 2px solid var(--neon-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.4);
+        }
+
+        .play-btn:hover {
+            background: var(--neon-primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 50px var(--neon-primary);
+        }
+
+        .play-btn svg {
+            width: 36px;
+            height: 36px;
+            fill: #fff;
+            margin-left: 6px;
+            transition: fill 0.3s;
+        }
+
+        .play-btn:hover svg {
+            fill: #000;
+        }
+
+        .pass-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .pass-val {
+            display: block;
+            font-family: 'Syne', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--neon-primary);
+            margin-top: 0.5rem;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px rgba(0, 255, 102, 0.5);
+        }
+
+        .info-steps {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 1.5rem 0 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--muted);
+            line-height: 2.2;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        .info-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-title::before {
+            content: '';
+            width: 4px;
+            height: 1em;
+            background: var(--neon-primary);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color 0.3s;
+            padding: 10px;
+            margin-top: 1rem;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-ctrl {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        /* ── VIP PRICING ── */
+
+        .vip-hero {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--white);
+            text-shadow: 0 0 20px rgba(0, 143, 57, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-grid {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: nowrap;
+            justify-content: center;
+            margin-top: 3.5rem;
+        }
+
+        .pc {
+            flex: 1;
+            min-width: 240px;
+            max-width: 320px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.4s cubic-bezier(.22, 1, .36, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .pc:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .pc.featured {
+            border-color: var(--neon-primary);
+            background: rgba(6, 18, 9, 0.9);
+            box-shadow: 0 0 40px rgba(0, 255, 102, 0.15), inset 0 0 20px rgba(0, 255, 102, 0.05);
+            transform: scale(1.05);
+            z-index: 5;
+        }
+
+        .pc.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 255, 102, 0.25), inset 0 0 30px rgba(0, 255, 102, 0.1);
+        }
+
+        .pc-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--neon-primary);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 6px 20px;
+            border-radius: 100px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'Syne', sans-serif;
+            box-shadow: 0 0 20px var(--neon-primary);
+        }
+
+        .pc-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .pc-price {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .pc.featured .pc-price {
+            color: var(--neon-primary);
+            text-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+        }
+
+        .pc-sub {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .pc-feats {
+            list-style: none;
+            flex-grow: 1;
+            margin-bottom: 2rem;
+        }
+
+        .pc-feats li {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #a0aab8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .pc-feats li .ck {
+            color: var(--neon-primary);
+            font-size: 0.8rem;
+            text-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .pc.featured .pc-feats li .ck {
+            color: var(--neon-primary);
+            text-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .pay-section {
+            border-top: 1px solid var(--border);
+            margin-top: 3.5rem;
+            padding-top: 3rem;
+            text-align: center;
+        }
+
+        .pay-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .pay-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pay-m {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .pay-m:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .pay-note {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--muted);
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            #home-view {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .pricing-grid {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #home-view {
+                grid-template-columns: 1fr;
+            }
+            .topbar {
+                padding: 1rem 1.5rem;
+            }
+            .panel-box,
+            .util-box {
+                padding: 3rem 1.5rem;
+            }
+            .pc {
+                min-width: 100%;
+                max-width: 100%;
+            }
+            .pc.featured {
+                transform: scale(1);
+            }
+            .pc.featured:hover {
+                transform: translateY(-6px);
+            }
+            .store-title {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;" class="loading">
+
+    <!-- LOADER -->
+    <div id="loader-screen">
+        <div class="loader-ring"></div>
+        <div class="loader-name">WELCOME TO KxC ERROR FIX</div>
+        <div class="loader-track">
+            <div class="loader-fill" id="loader-fill"></div>
+        </div>
+        <div class="loader-pct" id="loader-pct">0%</div>
+    </div>
+
+    <div id="main-content">
+        <!-- Pakistan Flag Stripe -->
+        <div class="pakistan-bar">
+            <div class="pb-w"></div>
+            <div class="pb-g"></div>
+        </div>
+
+        <div class="noise"></div>
+        <div class="ambient">
+            <div class="orb orb-a"></div>
+            <div class="orb orb-b"></div>
+        </div>
+
+        <div class="topbar">
+            <div class="tb-brand">KAIUM x CHEATS | ᴅᴠ ʙʏ ᴋᴀɪᴜᴍ xɪᴛᴇʀ </div>
+            <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠< Back </button></div>
+            <div class="tb-right">
+                <div class="live-badge"><span class="live-dot"></span> <span id="visitor-count">1</span> Online</div>
+                <div class="tb-visitor-img"><img src="https://cdn.phototourl.com/free/2026-07-24-105760d1-687b-4947-b046-62c59db9bcd4.png" alt="Visitors"></div>
+            </div>
+        </div>
+
+        <div class="page-wrap">
+            <!-- HEADER -->
+            <div class="store-header">
+                <div class="store-eyebrow">🇧🇩 Official KAIUM x CHEATS Network 🇧🇩</div>
+                <h1 class="store-title">KxC ERROR FIX  </h1>
+                <div class="store-sub">Premium Performance Platform — Updated OB54</div>
+                <div id="social-links" class="social-row">
+                    <a href="https://discord.gg/AcsSjS245b" target="_blank" class="s-btn">Discord</a>
+                    <a href="https://t.me/+Yj4CMsM8id9jYWRl" target="_blank" class="s-btn">Telegram</a>
+                    <a href="https://www.youtube.com/@kxc8899" target="_blank" class="s-btn">YouTube</a>
+                </div>
+            </div>
+
+            <!-- HOME GRID -->
+            <div id="home-view">
+               
+                <div class="hcard" onclick="showEmulatorPage()">
+                    <span class="hcard-tag">🎮 Tools</span>
+                    <div class="hcard-icon">🖥️</div>
+                    <div class="hcard-name">Best Emulator</div>
+                    <div class="hcard-sub">Optimized · Anti-Ban</div>
+                    <div class="hcard-cta">Download →</div>
+                </div>
+                <div class="hcard" onclick="window.open('https://www.mediafire.com/file/ekswsbripy1beo2/FF__KxC_OB54.xapk/file', '_blank')">
+                    <span class="hcard-tag">📦 Download</span>
+                    <div class="hcard-icon">🔥</div>
+                    <div class="hcard-name">Free Fire APK</div>
+                    <div class="hcard-sub">Latest Version · Working</div>
+                    <div class="hcard-cta">Download →</div>
+                </div>
+                <div class="hcard" onclick="showErrorFixPage()">
+                    <span class="hcard-tag" style="color:#ff3366;border-color:#ff3366;background:rgba(255,51,102,0.05);">🔧 Support</span>
+                    <div class="hcard-icon">⚙️</div>
+                    <div class="hcard-name">Error Fix</div>
+                    <div class="hcard-sub">All Issues · Solved</div>
+                    <div class="hcard-cta">Fix Now →</div>
+                </div>
+            </div>
+
+            <!-- VIP PAGE -->
+            <div id="vip-view" class="page-view">
+                <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 < Back </button></div>
+                <div class="util-box">
+                    <div class="pv-title vip-hero">💎 VIP Packages</div>
+                    <div class="pv-sub">Dominate the game with premium, undetected features.</div>
+                    <div class="pricing-grid">
+                        <div class="pc">
+                            <div class="pc-name">PREMIUM V1</div>
+                            <div class="pc-price">2500 ʙᴅᴛ / 25 ᴜꜱᴅ</div>
+                            <div class="pc-sub">One-time payment</div>
+                            <ul class="pc-feats">
+                                <li><span class="ck">✓</span> 3 Tips of Aimbot</li>
+                                <li><span class="ck">✓</span> All Gun Headshort</li>
+                                <li><span class="ck">✓</span> All Safe Brutal Modes</li>
+                                <li><span class="ck">✓</span> All Sniper Scope</li>
+                                <li><span class="ck">✓</span> All Sniper Switch</li>
+                                <li><span class="ck">✓</span> Cmera Left</li>
+                                <li><span class="ck">✓</span> Fast Landing</li>
+                                <li><span class="ck">✓</span>  Streamer Location</li>
+                                <li><span class="ck">✓</span>  All Chams Location</li>
+                                <li><span class="ck">✓</span>  Key Bind System</li>
+                                <li><span class="ck">✓</span>  200% ID Safe Challenge</li>
+                                <li><span class="ck">✓</span> Stream Mode</li>
+                                <li><span class="ck">✓</span> 32/64 Bit Supported</li>
+                                <li><span class="ck">✓</span>  Windows 10 / 11 Working</li>
+                                <li><span class="ck">✓</span> Lifetime Access</li>
+                            </ul>
+                            <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                        </div>
+                        <div class="pc featured">
+                            <div class="pc-badge">⭐ Best Value</div>
+                            <div class="pc-name">PREMIUM V2</div>
+                            <div class="pc-price">3000ʙᴅᴛ / 30ᴜꜱᴅ</div>
+                            <div class="pc-sub">One-time payment</div>
+                            <ul class="pc-feats">
+                                <li><span class="ck">✓</span> 4 Tips of Aimbot</li>
+                                <li><span class="ck">✓</span> All Gun Headshort</li>
+                                <li><span class="ck">✓</span> Sniper Headshort</li>
+                                <li><span class="ck">✓</span> All Sniper Scope</li>
+                                <li><span class="ck">✓</span> All Sniper Switch</li>
+                                <li><span class="ck">✓</span> All Chams Location</li>
+                                <li><span class="ck">✓</span> Guest Reset</li>
+                                <li><span class="ck">✓</span> Cmera Left</li>
+                                <li><span class="ck">✓</span> Fast Landing</li>
+                                <li><span class="ck">✓</span> Fake Lag</li>
+                                <li><span class="ck">✓</span> All ESP</li>
+                                <li><span class="ck">✓</span> Mute Sound</li>
+                                <li><span class="ck">✓</span> Stream Mode</li>
+                                <li><span class="ck">✓</span>  200% ID Safe Challenge</li>
+                                <li><span class="ck">✓</span> System(Customizable)</li>
+                                <li><span class="ck">✓</span> 32/64 Bit Supported</li>
+                                <li><span class="ck">✓</span>  Windows 10 / 11 Working</li>
+                                <li><span class="ck">✓</span> Lifetime Access</li>
+                            </ul>
+                            <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action vip">🛒 Buy Now</a>
+                        </div>
+                        <div class="pc">
+                            <div class="pc-name">Basic V1</div>
+                            <div class="pc-price">1200ʙᴅᴛ / 12ᴜꜱᴅ</div>
+                            <div class="pc-sub">One-time payment</div>
+                            <ul class="pc-feats">
+                                <li><span class="ck">✓</span> 2 Tips of Aimbot</li>
+                                <li><span class="ck">✓</span> Aimbot Head</li>
+                                <li><span class="ck">✓</span> Aimbot Drag</li>
+                                <li><span class="ck">✓</span> All Chams Menu</li>
+                                <li><span class="ck">✓</span> Chams Red</li>
+                                <li><span class="ck">✓</span> Chams Blue</li>
+                                <li><span class="ck">✓</span> Chams Visible</li>
+                                <li><span class="ck">✓</span> Stream Mode</li>
+                                <li><span class="ck">✓</span>  200% ID Safe Challenge</li>
+                                <li><span class="ck">✓</span> 32/64 Bit Supported</li>
+                                <li><span class="ck">✓</span>  Windows 10 / 11 Working</li>
+                                <li><span class="ck">✓</span> Lifetime Access</li>
+                            </ul>
+                            <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                        </div>
+                    </div>
+                    <div class="pc">
+                        <div class="pc-name">Basic V2</div>
+                        <div class="pc-price">1800ʙᴅᴛ / 18ᴜꜱᴅ</div>
+                        <div class="pc-sub">One-time payment</div>
+                        <ul class="pc-feats">
+                            <li><span class="ck">✓</span> 2 Tips of Aimbot</li>
+                            <li><span class="ck">✓</span> Aimbot Head</li>
+                            <li><span class="ck">✓</span> Aimbot Drag</li>
+                            <li><span class="ck">✓</span> Scope X2</li>
+                            <li><span class="ck">✓</span> Scope X4</li>
+                            <li><span class="ck">✓</span> Sniper Aim</li>
+                            <li><span class="ck">✓</span> Sniper Switch</li>
+                            <li><span class="ck">✓</span> Sniper No Lag</li>
+                            <li><span class="ck">✓</span> General 3 Functions</li>
+                            <li><span class="ck">✓</span> Back Jump 2019</li>
+                            <li><span class="ck">✓</span> Cmera Left</li>
+                            <li><span class="ck">✓</span> Fast Linding</li>
+                            <li><span class="ck">✓</span> Speed Hack</li>
+                            <li><span class="ck">✓</span> Wall Hack</li>
+                            <li><span class="ck">✓</span> Remove Bot</li>
+                            <li><span class="ck">✓</span> All Chams Menu</li>
+                            <li><span class="ck">✓</span> RGP Panel</li>
+                            <li><span class="ck">✓</span> Panel Coler</li>
+                            <li><span class="ck">✓</span> 3 Panel Particile Type</li>
+                            <li><span class="ck">✓</span>  200% ID Safe Challenge</li>
+                            <li><span class="ck">✓</span> Stream Mode</li>
+                            <li><span class="ck">✓</span> 32/64 Bit Supported</li>
+                            <li><span class="ck">✓</span>  Windows 10 / 11 Working</li>
+                            <li><span class="ck">✓</span> Lifetime Access</li>
+                        </ul>
+                        <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                    </div>
+                    <div class="pc featured">
+                        <div class="pc-badge">⭐ Best Value</div>
+                        <div class="pc-name">BIOS PANEL</div>
+                        <div class="pc-price">9000ʙᴅᴛ / 90ᴜꜱᴅ</div>
+                        <div class="pc-sub">One-time payment</div>
+                        <ul class="pc-feats">
+                            <li><span class="ck">✓</span> Only For Streamers & Tournament Players</li>
+                            <li><span class="ck">✓</span> Not For Everyone</li>
+                            <li><span class="ck">✓</span> Totally Hidden Panel</li>
+                            <li><span class="ck">✓</span> Headshot</li>
+                            <li><span class="ck">✓</span> Streamer Location</li>
+                            <li><span class="ck">✓</span> Undetect From PC</li>
+                            <li><span class="ck">✓</span> Key Bind System</li>
+                            <li><span class="ck">✓</span> 32/64 Bit Supported</li>
+                            <li><span class="ck">✓</span> In Game ON / OFF</li>
+                            <li><span class="ck">✓</span>  Windows 10 / 11 Working</li>
+                            <li><span class="ck">✓</span> Lifetime Access</li>
+                        </ul>
+                        <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                    </div>
+                    <div class="pc">
+                        <div class="pc-name">Streamer Panel</div>
+                        <div class="pc-price">3500ʙᴅᴛ / 35ᴜꜱᴅ</div>
+                        <div class="pc-sub">One-time payment</div>
+                        <ul class="pc-feats">
+                            <li><span class="ck">✓</span> Phone Control</li>
+                            <li><span class="ck">✓</span> Headshot</li>
+                            <li><span class="ck">✓</span> Streamel Location</li>
+                            <li><span class="ck">✓</span> Hidden From Pc</li>
+                            <li><span class="ck">✓</span> Ios /Android Supported</li>
+                            <li><span class="ck">✓</span> Hotkey System</li>
+                            <li><span class="ck">✓</span> In Game On / Off</li>
+                            <li><span class="ck">✓</span>  Windows 10 / 11 Working</li>
+                            <li><span class="ck">✓</span> 32 / 64 Bit All Supported</li>
+                            <li><span class="ck">✓</span> Lifetime Access</li>
+                        </ul>
+                        <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                    </div>
+                    <div class="pc">
+                        <div class="pc-name">EMULATOR OPTIMIZE TOOL</div>
+                        <div class="pc-price">2500ʙᴅᴛ / 25ᴜꜱᴅ</div>
+                        <div class="pc-sub">One-time payment</div>
+                        <ul class="pc-feats">
+                            <li><span class="ck">✓</span> SMOOTH GAMEPLAY</li>
+                            <li><span class="ck">✓</span> NO LAG</li>
+                            <li><span class="ck">✓</span> EXTRA 100-150FPS </li>
+                            <li><span class="ck">✓</span> 35% AUTO AIM LOCK</li>
+                            <li><span class="ck">✓</span> EMULATOR OPTIMIZE TOOL</li>
+                            <li><span class="ck">✓</span>  Windows 10 / 11 Working</li>
+                            <li><span class="ck">✓</span> 32 / 64 Bit All Supported</li>
+                            <li><span class="ck">✓</span> Lifetime Access</li>
+                        </ul>
+                        <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                    </div>
+                    <div class="pc">
+                        <div class="pc-name">𝗖𝗨𝗦𝗧𝗢𝗠 𝗣𝗔𝗡𝗘𝗟</div>
+                        <div class="pc-sub">One-time payment</div>
+                        <ul class="pc-feats">
+                            <li><span class="ck">✓</span>  What Is Custom Panel ?</li>
+                            <li><span class="ck">✓</span> Answer -  A Panel With Your Name, With Your Logo, With Your Keyauth Made By Us But All My Codes, My Methods, My Protection, My Memory You Have Full Access Of Panel To Create Unlimited User Pass, You Can Sell Your Panel In Any Price You Want  </li>
+                            <li><span class="ck">✓</span>Custom External Panel - 6000 ʙᴅᴛ / 50ᴜꜱᴅ</li>
+                            <li><span class="ck">✓</span> Custom Internal Panel - 7000 ʙᴅᴛ / 55ᴜꜱᴅ</li>
+                            <li><span class="ck">✓</span>  Custom ForceAim Panel - 7000 ʙᴅᴛ / 55ᴜꜱᴅ</li>
+                            <li><span class="ck">✓</span> Lifetime Access</li>
+                        </ul>
+                        <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                    </div>
+                    <div class="pc">
+                        <div class="pc-name">ANDROID PANEL</div>
+                        <div class="pc-sub">One-time payment</div>
+                        <ul class="pc-feats">
+                            <li><span class="ck">✓</span>  ANDROID PANEL</li>
+                            <li><span class="ck">✓</span> NONROOT MAIN ID NOT SAFE BUT ROOT ARE SAFE  </li>
+                            <li><span class="ck">✓</span>1DAY 100 BDT / 1 USD</li>
+                            <li><span class="ck">✓</span> 7 DAYS 600 BDT / 6 USD</li>
+                            <li><span class="ck">✓</span>  15 DAYS 800 BDT / 8 USD</li>
+                            <li><span class="ck">✓</span> 30 DAYS 1500 BDT / 15 USD</li>
+                        </ul>
+                        <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                    </div>
+                    <div class="pc">
+                        <div class="pc-name">IPHONE PANEL</div>
+                        <div class="pc-price">4500ʙᴅᴛ / 45ᴜꜱᴅ</div>
+                        <div class="pc-sub">One-time payment</div>
+                        <ul class="pc-feats">
+                            <li><span class="ck">✓</span>  IPHONE PANEL</li>
+                            <li><span class="ck">✓</span> This Panel Includes All Features – 100% Safe & Secure  </li>
+                            <li><span class="ck">✓</span> Undetect From Phone</li>
+                            <li><span class="ck">✓</span> Streamel Location</li>
+                            <li><span class="ck">✓</span> All System(Customizable)</li>
+                            <li><span class="ck">✓</span> Lifetime Access</li>
+                        </ul>
+                        <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                    </div>
+                    <div class="pc">
+                        <div class="pc-name">🛒 HOW TO BUY ANY PANEL❓ </div>
+                        <div class="pc-sub">ANSWER👇</div>
+                        <ul class="pc-feats">
+                            <li><span class="ck">✓</span>  If you want to buy any panel, join our Discord server and create a ticket to let us know which panel you need. If you don't have Discord, you'll find our Telegram channel link on the website's homepage. Join there and message me directly. Buy and enjoy our panels!"</li>
+                        </ul>
+                        <a href="https://discord.gg/AcsSjS245b" target="_blank" class="btn-action">🛒 Buy Now</a>
+                    </div>
+                    <div class="pay-section">
+                        <div class="pay-title">🔒 Accepted Payments</div>
+                        <div class="pay-methods">
+                            <div class="pay-m">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#F3BA2F"><path d="M11.996 9.428L14.566 12l-2.57 2.57-2.572-2.57 2.572-2.572zM11.996 3l5.143 5.144-2.57 2.57-2.573-2.57-2.572 2.57-2.57 2.572-2.573-2.572L11.996 3zM6.853 8.143L9.423 10.713 6.853 13.284 4.283 10.713 6.853 8.143zM17.14 8.143l2.573 2.57-2.573 2.57-2.57-2.57 2.57-2.57zM11.996 15.857l2.573-2.57 2.57 2.57-5.143 5.144-5.144-5.144 2.572-2.57 2.572 2.57z" /></svg>
+                                <span style="color:#F3BA2F;">(WORLD) BINANCE</span>
+                            </div>
+                            <div class="pay-m">
+                                <span style="font-size:1.2rem;">📱</span>
+                                <span style="color:var(--neon-primary);">BD (BIKASH / NAGAD</span>
+                            </div>
+                        </div>
+                        <div class="pay-note">Open a ticket in Discord to complete your purchase.If you don't have Discord, you'll find our Telegram channel link on the website's homepage. </div>
+                    </div>
+                    <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠  Click To Back Home Page</button></div>
+                </div>
+            </div>
+
+            <!-- PANEL PAGE -->
+            <div id="panel-view" class="page-view">
+                <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠< Back </button></div>
+                <div class="panel-box">
+                    <div class="pv-title">⚙️ Free Panel</div>
+                    <div class="pv-sub">Click the thumbnail to watch the tutorial on YouTube</div>
+                    <div class="video-frame" id="panelVideoThumbnail" onclick="openYouTubeVideo('https://www.youtube.com/@kxc8899')">
+                        <div class="video-thumb" style="background-image: url('https://cdn.phototourl.com/free/2026-07-24-7db35309-4b69-420d-8ef3-c89b98048e8a.png');">
+                            <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg></div>
+                        </div>
+                    </div>
+                    <div class="pass-box">
+                        <span style="font-size:1rem; font-weight:600; color:var(--muted);">🔐 RAR Extract Password:</span>
+                        <span class="pass-val">1</span>
+                    </div>
+                    <div class="stack">
+                        <a href="https://www.mediafire.com/file/ld88dkybk6rhzl7/MarcoXitersV2.zip/file" target="_blank" class="btn-action">⬇️ KxC V1</a>
+                        <a href="https://www.mediafire.com/file/ld88dkybk6rhzl7/MarcoXitersV2.zip/file" target="_blank" class="btn-action">⬇️ KxC V2</a>
+                        <button onclick="showHowToDownloadPage()" class="btn-action" style="background:transparent;border-color:rgba(255,255,255,0.1);color:var(--muted);box-shadow:none;">❓ How to Download</button>
+                    </div>
+                    <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 Click To Back Home Page</button></div>
+                </div>
+            </div>
+
+            <!-- HOW TO DOWNLOAD PAGE -->
+            <div id="howto-download-view" class="page-view">
+                <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 < Back </button></div>
+                <div class="panel-box">
+                    <div class="pv-title">📥 How to Download</div>
+                    <div class="pv-sub">Step-by-step download guide</div>
+                    <div class="video-frame" style="cursor:default;">
+                        <iframe src="https://www.youtube-nocookie.com/embed/ECpkpDwAATQ" title="How to Download" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="info-title">📌 Download Steps</div>
+                    <div class="info-steps">1️⃣ Click the "INITIALIZE DOWNLOAD" button on the setup page 2️⃣ Wait for the link to redirect 3️⃣ Complete any captcha verification if prompted 4️⃣ Save the file to your computer 5️⃣ Extract using password: <span style="color:var(--neon-primary);font-weight:600;">1</span>                        6️⃣ Run the installer as Administrator</div>
+                    <div class="stack">
+                        <button onclick="showPanelPage()" class="btn-action">← Back to Panel</button>
+                    </div>
+                    <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 Click To Back Home Page</button></div>
+                </div>
+            </div>
+
+            <!-- FULL SETUP PAGE -->
+            <div id="full-setup-view" class="page-view">
+                <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 < Back </button></div>
+                <div class="panel-box">
+                    <div class="pv-title">🔥 Full Setup Tutorial</div>
+                    <div class="pv-sub">Watch the complete configuration guide</div>
+                    <div class="video-frame" style="cursor:default;">
+                        <iframe src="https://www.youtube-nocookie.com/embed/R9pBJcRLV_8" title="Full Setup" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="info-title">📌 Full Setup Steps</div>
+                    <div class="info-steps">
+                        1️⃣ Download the required Emulator from the Emulator menu 2️⃣ Install and configure: 4 Cores, 4096MB RAM 3️⃣ Download the Free Fire APK and install it inside the emulator 4️⃣ Download the VIP or Free Panel and extract the files 5️⃣
+                        Run the Panel as Administrator BEFORE opening the game 6️⃣ Follow on-screen prompts to inject successfully
+                    </div>
+                    <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 Dashboard</button></div>
+                </div>
+            </div>
+
+            <!-- EMULATOR PAGE -->
+            <div id="emulator-view" class="page-view">
+                <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 < Back </button></div>
+                <div class="util-box">
+                    <div class="pv-title">🎮 Optimized Emulators</div>
+                    <div class="pv-sub">Best experience with built-in Anti-Ban and high FPS</div>
+                    <div class="stack" style="max-width:100%;margin-bottom:3rem;flex-direction:row;gap:1.5rem;">
+                        <a href="https://www.mediafire.com/file/uvkfdsjcfbqovde/BlueStacks_App_Player_v5.22.130.1019.exe/file" target="_blank" class="btn-action" style="flex:1;">📥 BlueStacks 5 — Latest</a>
+                        <a href="https://www.mediafire.com/file/w0xl6ah3nqd4jvv/Msi_App_Player.rar/file" target="_blank" class="btn-action" style="flex:1;">📥 MSI App Player 5</a>
+                    </div>
+                    
+                    </div>
+                    <div class="info-title">⚙️ Emulator Setup Guide</div>
+                    <div class="info-steps">1️⃣ Download the emulator file from above 2️⃣ Right-click → Run as Administrator 3️⃣ Temporarily disable antivirus 4️⃣ Install with default settings 5️⃣ Configure: CPU Cores: 4 | RAM: 4096 MB 6️⃣ Install the APK inside the emulator</div>
+                    <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 Dashboard</button></div>
+                </div>
+            </div>
+
+            <!-- ERROR FIX PAGE -->
+            <div id="error-fix-view" class="page-view">
+                <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 < Back </button></div>
+                <div class="util-box">
+                    <div class="pv-title">🔧 Diagnostic Utilities</div>
+                    <div class="pv-sub">Fix rendering errors and virtualization conflicts</div>
+                    <div class="stack" style="max-width:100%;margin-bottom:3rem;flex-direction:row;gap:1.5rem;">
+                        <a href="https://www.mediafire.com/file/4sbbmxkwdnnlszn/HD-DisableHyperV_native_v2.exe/file" target="_blank" class="btn-action" style="flex:1; border-color:#ff3366; color:#ff3366; background:rgba(255,51,102,0.1);">⚡ Disable Hyper-V</a>
+                        <a href="https://www.mediafire.com/file/rpg7489jmw6lzbo/opengl32.zip/file" target="_blank" class="btn-action" style="flex:1;">🔧 Chams Fix [64-bit]</a>
+                        <a href="https://www.mediafire.com/file/tljrgnyfxhmcqli/PANEL_DRIVERS.zip/file" target="_blank" class="btn-action" style="flex:1;">🔧 Panel Driver</a>
+                        <a href="https://www.mediafire.com/file/o21v10g4w4cnz56/D3DCOMPILER_43.dll.zip/file" target="_blank" class="btn-action" style="flex:1;">🔧FIX ERROR D3DX DLL ERROOR</a>
+                        <a href="https://www.mediafire.com/file/qw8oq09kf22jf0w/FixAdbPorts.rar/file" target="_blank" class="btn-action" style="flex:1;">🔧Fix Adb Port</a>
+                    </div>
+                    <div class="video-frame" style="cursor:default;">
+                        <iframe src="https://go.screenpal.com/watch/cOiZFynU9Nd" title="Error Fix" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="info-title">⚠️ Troubleshooting Steps</div>
+                    <div class="info-steps">
+                        ❌ HYPER-V ERROR: Run Disable Hyper-V tool as Admin → Restart PC ❌ RENDERING ERROR: Install CHAMS FIX → Extract to game folder ❌ CONNECTION FAILED: Disable antivirus → Add folder to exclusions ❌ BLACK SCREEN: Update graphics drivers
+                        → Run in compatibility mode
+                    </div>
+                    <div class="nav-ctrl"><button onclick="showHomePage()" class="back-btn">🏠 Dashboard</button></div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end page-wrap -->
+    </div>
+    <!-- end main-content -->
+
+    <script>
+        // ── LOADER ──
+        const loaderFill = document.getElementById('loader-fill');
+        const loaderPct = document.getElementById('loader-pct');
+        let progress = 0;
+
+        function startLoader() {
+            let iv = setInterval(() => {
+                if (progress < 88) {
+                    progress += Math.floor(Math.random() * 8) + 2;
+                    if (progress > 88) progress = 88;
+                    loaderFill.style.width = progress + '%';
+                    loaderPct.textContent = progress + '%';
+                }
+            }, 120);
+            setTimeout(() => {
+                clearInterval(iv);
+                let fv = setInterval(() => {
+                    progress += 4;
+                    if (progress >= 100) {
+                        progress = 100;
+                        loaderFill.style.width = '100%';
+                        loaderPct.textContent = '100%';
+                        clearInterval(fv);
+                        setTimeout(() => {
+                            document.getElementById('loader-screen').classList.add('fade-out');
+                            document.body.classList.remove('loading');
+                        }, 400);
+                    } else {
+                        loaderFill.style.width = progress + '%';
+                        loaderPct.textContent = progress + '%';
+                    }
+                }, 20);
+            }, 800);
+        }
+
+        window.onload = function() {
+            document.getElementById('main-content').style.display = 'block';
+            startLoader();
+        };
+
+        function openYouTubeVideo(url) {
+            window.open(url, '_blank');
+        }
+
+        function hideAll() {
+            document.querySelectorAll('.page-view').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('active');
+            });
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('social-links').classList.add('hidden');
+        }
+
+        function showVipPage() {
+            hideAll();
+            show('vip-view');
+        }
+
+        function showPanelPage() {
+            hideAll();
+            show('panel-view');
+        }
+
+        function showHowToDownloadPage() {
+            hideAll();
+            show('howto-download-view');
+        }
+
+        function showFullSetupPage() {
+            hideAll();
+            show('full-setup-view');
+        }
+
+        function showEmulatorPage() {
+            hideAll();
+            show('emulator-view');
+        }
+
+        function showErrorFixPage() {
+            hideAll();
+            show('error-fix-view');
+        }
+
+        function show(id) {
+            var el = document.getElementById(id);
+            el.classList.remove('hidden');
+            el.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showHomePage() {
+            document.querySelectorAll('.page-view').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('active');
+            });
+            document.getElementById('home-view').classList.remove('hidden');
+            document.getElementById('social-links').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function updateVisitorCount() {
+            fetch('/heartbeat', {
+                    method: 'POST',
+                    credentials: 'same-origin'
+                })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.count !== undefined) document.getElementById('visitor-count').textContent = d.count;
+                })
+                .catch(() => {});
+        }
+        setInterval(updateVisitorCount, 5000);
+        updateVisitorCount();
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) updateVisitorCount();
+        });
+
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+            return true;
+        };
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+
+</html>
